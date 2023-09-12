@@ -1,4 +1,26 @@
-# Detailed and Commented Code for the Analysis
+# Extracting insights from the data
+
+# 1. Countries with the highest and lowest GDP in the latest year available
+latest_year = data['Year'].max()
+highest_gdp_country = data[data['Year'] == latest_year].sort_values(by='GDP (USD)', ascending=False).iloc[0]['Country']
+lowest_gdp_country = data[data['Year'] == latest_year].sort_values(by='GDP (USD)').iloc[0]['Country']
+
+# 2. Countries with the most significant increase and decrease in GDP over the years
+data['GDP_difference'] = data.groupby('Country')['GDP (USD)'].diff().fillna(0)
+largest_increase_country = data.sort_values(by='GDP_difference', ascending=False).iloc[0]['Country']
+largest_decrease_country = data.sort_values(by='GDP_difference').iloc[0]['Country']
+
+# 3. Countries with the highest and lowest population in the latest year available
+highest_population_country = data[data['Year'] == latest_year].sort_values(by='Population ', ascending=False).iloc[0]['Country']
+lowest_population_country = data[data['Year'] == latest_year].sort_values(by='Population ').iloc[0]['Country']
+
+# 4. Countries with the highest and lowest GDP per capita in the latest year available
+highest_gdp_per_capita_country = data[data['Year'] == latest_year].sort_values(by='GDP per capita', ascending=False).iloc[0]['Country']
+lowest_gdp_per_capita_country = data[data['Year'] == latest_year].sort_values(by='GDP per capita').iloc[0]['Country']
+
+highest_gdp_country, lowest_gdp_country, largest_increase_country, largest_decrease_country, highest_population_country, lowest_population_country, highest_gdp_per_capita_country, lowest_gdp_per_capita_country
+
+
 
 # -----------------------------
 # 1. Data Preprocessing
@@ -174,4 +196,5 @@ plt.xlabel('Feature Importance')
 plt.ylabel('Features')
 plt.title('Feature Importances (Optimized Random Forest - GDP Prediction)')
 plt.show()
+
 
